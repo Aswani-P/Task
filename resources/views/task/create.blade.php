@@ -11,28 +11,43 @@
     <div>
         <h1>Task</h1>
     </div>
-    <form action="{{route('tasks.store')}}" method="post">
-        @csrf
-        <div class="mb-3">
-            <label for="nameControl" class="form-label">Name</label>
-            <input type="text" class="form-control" name="name" id="nameControl" />
-        </div>
-        <div class="mb-3">
-            <label for="emailControl" class="form-label">Email</label>
-            <input type="email" id="emailControl"  class="form-control" name="email" />
-        </div>
-        <div class="mb-3">
-            <label for="codeControl" class="form-label">Phone code</label>
-            <input type="text" id="codeControl"  class="form-control" name="code" />
-        </div>
-        <div class="mb-3">
-            <label for="phoneControl" class="form-label">Phone</label>
-            <input type="text" id="phoneControl"  class="form-control" name="phone" />
-        </div>
-        <div class="mb-3">
-            <button type="submit" class="btn btn-primary">Save</button>
-        </div>
-    </form>
+    <div class="container">
+       
+        <form action="{{route('tasks.store')}}" method="post">
+            @csrf
+            <div class="mb-3">
+                <label for="nameControl" class="form-label">Name</label>
+                <input type="text" class="form-control" name="name" id="nameControl" value="{{old('name')}}" />
+                @error('name')
+                <span class="alert " style="color:red;">{{$message}}</span>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <label for="emailControl" class="form-label">Email</label>
+                <input type="email" id="emailControl"  class="form-control" name="email" value="{{old('email')}}"/>
+                @error('email')
+                <span class="alert " style="color:red;">{{$message}}</span>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <label for="codeControl" class="form-label">Phone code</label>
+                <input type="text" id="codeControl"  class="form-control" name="code" value="{{old('code')}}" />
+                @error('code')
+                <span class="alert " style="color:red;">{{$message}}</span>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <label for="phoneControl" class="form-label">Phone</label>
+                <input type="text" id="phoneControl"  class="form-control" name="phone" value="{{old('phone')}}" />
+                @error('phone')
+                <span class="alert " style="color:red;">{{$message}}</span>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
     
 </body>
 </html>
