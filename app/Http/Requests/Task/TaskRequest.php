@@ -6,7 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class TaskRequest extends FormRequest
 {
-
     public function authorize(): bool
     {
         return true;
@@ -17,17 +16,17 @@ class TaskRequest extends FormRequest
         return [
 
             'name' => [
-                'required'
+                'required',
             ],
             'email' => [
-                'required'
+                'required',
             ],
             'code' => [
-                'required'
+                'required',
             ],
             'phone' => [
-                'required'
-            ]
+                'required',
+            ],
         ];
     }
 

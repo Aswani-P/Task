@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Task\TaskController;
+use App\Http\Controllers\Task\TaskDeleteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,4 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::resource('tasks',TaskController::class);
+Route::resource('tasks', TaskController::class);
+Route::post('delete', [TaskDeleteController::class, 'delete_data'])->name('delete_data');
+Route::post('delete_data', [TaskDeleteController::class, 'delete_data'])->name('delete_data');

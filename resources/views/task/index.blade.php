@@ -36,6 +36,7 @@
                     <th scope="col">Email</th>
                     <th scope="col">Code</th>
                     <th scope="col">Mobile</th>
+                    <th scope="col">Source</th>
                     <th scope="col">Status</th>
                     <th scope="col">Actions</th>
 
@@ -48,14 +49,22 @@
                         <td>{{ $task->name }}</td>
                         <td>{{ $task->email }}</td>
                         <td>{{ $task->code }}</td>
-                        <td>{{ $task->phone }}</td>
-                        <td>{{ $task->status }}</td>
+                        <td>{{ $task->phone ?? '' }}</td>
+                        <td>{{$task->getSources ? $task->getSources->name: ''}}</td>
+                        <td>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                            </div>
                         <td>
                             <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-warning"
-                                role="button">Update</a>
-                            <meta name="csrf-token" content="{{ csrf_token() }}">
-                            <button class="delete_btn btn btn-danger" data-url="{{ route('tasks.destroy', $task->id) }}"
-                               onclick="alert_msg()" data-token="{{ csrf_token() }}">Delete</button>
+                                role="button">Update
+                            </a>
+                            <form action="delete_data" method="post" style="display:inline">
+                                @csrf
+                           
+                                <input type="hidden" name="id" id="id" value="{{$task->id}}">
+                                <button type="submit"class="delete_btn btn btn-danger" onclick="alert_msg()" >Delete</button>
+                            </form>
                         </td>
 
                     </tr>
@@ -88,20 +97,22 @@
             });
             var confirmation = confirm("are you sure you want to remove the item?");
             if (confirmation) {
-                ;
-                var userURL = $(btn).data('url');
+                var id=$('#id').val();
+                // alert(id);
+                
+                // var userURL = $(btn).data('url');
                 console.log(userURL);
                 
 
                 $.ajax({
-                    type: 'DELETE',
-                    url: userURL,
+                    type: 'post',
+                    url: "{{route('delete_data')}}",
+                    data:{
+                        'id':id
+                    },
 
                     success: function(response) {
-                        table.ajax.reload();
-
-                        setInterval('location.reload()', 7000);
-                        console.log(response);
+                        window.location.reload();
                     },
 
                 });

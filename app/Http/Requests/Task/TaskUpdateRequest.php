@@ -22,18 +22,18 @@ class TaskUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>[
-                'required'
+            'name' => [
+                'required',
             ],
-            'email'=>[
-                'required'
+            'email' => [
+                'required',
             ],
-            'code'=>[
-                'required'
+            'code' => [
+                'required',
             ],
-            'phone'=>[
-                'required'
-            ]
+            'phone' => [
+                'required',
+            ],
         ];
     }
 }
