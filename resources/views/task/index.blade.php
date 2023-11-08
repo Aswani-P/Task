@@ -18,10 +18,10 @@
 
 <body>
     <div>
-        <h1>Task Details</h1>
+        <h1 style="color:green;text-align:center;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;padding-top:30px;">Task Details</h1>
     </div>
     <br>
-    <br>
+    
 
 
     <div class="container">

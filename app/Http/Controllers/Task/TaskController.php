@@ -15,22 +15,20 @@ class TaskController extends Controller
         // $source = Source::first();
         //    $tasks = Task::first();
         $tasks = Task::get();
-        
+
         $collectionA = collect([1, 2, 3, 4, 5]);
-        // $collectionB = collect(["a","b","c"]);
+        $collectionB = collect([1, 2, 3, 4, 5, 6, 7]);
+        $collection = $collectionB->chunk(2);
         // $collectionC = $collectionA->concat([$collectionB]);
-        // $collectionC->all();
-        $getEven = $collectionA->map(function(int $item, int $key){
-            if( $item % 2==0){
+        $collectionB->all();
+        $getEven = $collectionA->map(function (int $item, int $key) {
+            if ($item % 2 == 0) {
                 return $item;
             }
-           
-            
         });
-       
+
         $getEven->all();
-        //  dd($getEven);
-        
+        // dd($collection);
 
         return view('task.index', compact('tasks'));
     }
@@ -45,6 +43,10 @@ class TaskController extends Controller
 
         $validate = $request->validated();
         Task::create($validate);
+        $source_name= request('source');
+        // Source::create([
+        //     'name'=>request($source_name)
+        // ]);
 
         return redirect('tasks')->with('message', 'created successfully');
     }
