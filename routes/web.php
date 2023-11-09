@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Task\TaskController;
 use App\Http\Controllers\Task\TaskDeleteController;
+use App\Http\Controllers\Task\TaskPdfController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,3 +22,7 @@ Route::get('/', function () {
 Route::resource('tasks', TaskController::class);
 Route::post('delete', [TaskDeleteController::class, 'delete_data'])->name('delete_data');
 Route::post('delete_data', [TaskDeleteController::class, 'delete_data'])->name('delete_data');
+Route::get('view/{id}',[TaskPdfController::class,'view'])->name('view');
+Route::get('pdf/{id}',[TaskPdfController::class,'taskPdf'])->name('pdf');
+Route::get('export',[TaskPdfController::class,'taskExport'])->name('export');
+// Route::get('import',[TaskPdfController::class,'taskImport'])->name('import');

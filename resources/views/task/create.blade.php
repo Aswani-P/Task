@@ -43,17 +43,6 @@
                 <span class="alert " style="color:red;">{{$message}}</span>
                 @enderror
             </div>
-            <div class="mb-3">
-                <label for="sourceControl" class="form-label" style="font-size:20px;">Source</label>
-                <select name="source" id="sourceControl"class="form-control" value="{{old('source')}}">
-                    <option value="{{old('source')}}">choose the source</option>
-                    <option value="Call Enquiry" >Call Enquiry</option>
-                    <option value="Message Enquiry" >Message Enquiry</option>
-                </select>
-                @error('source')
-                <span class="alert " style="color:red;">{{$message}}</span>
-                @enderror
-            </div>
             <div class="mb-3" >
                 <button type="submit" class="btn btn-success form-control" >Save</button>
             </div>

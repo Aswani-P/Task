@@ -18,7 +18,7 @@
 
 <body>
     <div>
-        <h1 style="color:green;text-align:center;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;padding-top:30px;">Task Details</h1>
+        <h1 style="color:green;text-align:center;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;padding-top:30px;">Tasks</h1>
     </div>
     <br>
     
@@ -27,6 +27,11 @@
     <div class="container">
         <div>
             <a href="{{ route('tasks.create') }}" class="btn btn-primary" role="button">Add Task</a>
+            <a href="{{route('export')}}" class="btn btn-dark" role="button">Export</a>
+            <form action="">
+                <input type="file" name="file_upload" id="file">
+            </form>
+           
         </div><br>
         <table class="table display" id="myTable">
             <thead>
@@ -65,7 +70,8 @@
                                 <input type="hidden" name="id" id="id" value="{{$task->id}}">
                                 <button type="submit"class="delete_btn btn btn-danger" onclick="alert_msg()" >Delete</button>
                             </form>
-                        </td>
+                        
+                            <a href="{{route('view',$task->id)}}"class="btn btn-primary" role="button">View</a></td>
 
                     </tr>
                 @endforeach

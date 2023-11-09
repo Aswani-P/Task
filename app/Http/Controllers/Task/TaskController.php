@@ -43,7 +43,7 @@ class TaskController extends Controller
 
         $validate = $request->validated();
         Task::create($validate);
-        $source_name= request('source');
+        $source_name = request('source');
         // Source::create([
         //     'name'=>request($source_name)
         // ]);

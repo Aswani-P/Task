@@ -20,9 +20,4 @@ class TaskDeleteController extends Controller
         return redirect('tasks');
 
     }
-
-    public function status_change()
-    {
-
-    }
 }
