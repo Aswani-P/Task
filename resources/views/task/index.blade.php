@@ -21,16 +21,22 @@
         <h1 style="color:green;text-align:center;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;padding-top:30px;">Tasks</h1>
     </div>
     <br>
-    
+        @if(Session::has('message'))
+        <p class="alert alert-info">{{ Session::get('message') }}</p>
+        @endif
 
 
     <div class="container">
         <div>
             <a href="{{ route('tasks.create') }}" class="btn btn-primary" role="button">Add Task</a>
             <a href="{{route('export')}}" class="btn btn-dark" role="button">Export</a>
-            <form action="">
-                <input type="file" name="file_upload" id="file">
-            </form>
+            <div class="container" style="padding-top:20px;">
+                <form action="{{route('import')}}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <input type="file" name="file_upload" id="file">
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </form>
+            </div>
            
         </div><br>
         <table class="table display" id="myTable">

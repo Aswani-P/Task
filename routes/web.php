@@ -25,4 +25,4 @@ Route::post('delete_data', [TaskDeleteController::class, 'delete_data'])->name('
 Route::get('view/{id}',[TaskPdfController::class,'view'])->name('view');
 Route::get('pdf/{id}',[TaskPdfController::class,'taskPdf'])->name('pdf');
 Route::get('export',[TaskPdfController::class,'taskExport'])->name('export');
-// Route::get('import',[TaskPdfController::class,'taskImport'])->name('import');
+Route::post('import',[TaskPdfController::class,'taskImport'])->name('import');
