@@ -10,8 +10,9 @@ class TaskDeleteController extends Controller
 {
     public function delete_data(Request $request)
     {
-
-        $id = $request->id;
+        // dd($request->all());
+        // $id = $request->id;
+        $id = 
         $task = Task::find($id);
         // dd($task);
         $task->delete();

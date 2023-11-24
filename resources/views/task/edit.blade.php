@@ -31,11 +31,23 @@
                 <div class="mb-3">
                     <label for="phoneControl" class="form-label">Phone</label>
                     <input type="text" id="phoneControl"  class="form-control" name="phone" value="{{$tasks->phone}}" />
-                </div>
+                </div><br>
+                <div class="mb-3">
+                    <select name="source_id" id="source" class="form-control">
+                     @foreach ($source as $item)
+                     <option value="{{$item->id}}">{{$item->name}}</option>
+                         
+                     @endforeach
+                    </select>
+                 </div>
                 <div class="mb-3">
                     <label for="statusControl" class="form-label">Status</label>
-                    <input type="text" id="statusControl"  class="form-control" name="status" value="{{$tasks->status}}" />
-                </div>
+                    <select name="status" id="stats" class="form-control">
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+                    {{-- <input type="text" id="statusControl"  class="form-control" name="status" value="{{$tasks->status}}" /> --}}
+                </div><br>
                 <div class="mb-3">
                     <button type="submit" class="btn btn-primary form-control">Save</button>
                 </div>

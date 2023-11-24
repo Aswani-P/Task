@@ -9,7 +9,8 @@ class Task extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    // protected $guarded = [];
+    protected $fillable =['name','source_id','email','code','phone','status'];
 
     public function getSources()
     {

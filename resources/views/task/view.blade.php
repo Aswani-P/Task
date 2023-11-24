@@ -20,16 +20,16 @@
             <div class="card-body">
                 <input type="hidden" name="id" id="id" value="{{ $task->id }}">
                 Name <input type="text" name="name" id="name" value="{{ $task->name }}"
-                    class="form-control">
+                    class="form-control" readonly>
                 Email<input type="text" name="email" id="email"
-                    value="{{ $task->email }}"class="form-control">
+                    value="{{ $task->email }}"class="form-control" readonly>
                 Contact <input type="text" name="contact"
                     value="{{ $task->code . ' ' . $task->phone }}"class="form-control">
-                Source  <input type="text" name="source" value="{{ $task->getSources->name }}"class="form-control">
+                Source  <input type="text" name="source" value="{{ $task->getSources->name }}"class="form-control" readonly>
                 @if ($task->status == 1)
-                    Status  <input type="text" name="status" value="Active"class="form-control">
+                    Status  <input type="text" name="status" value="Active"class="form-control" readonly>
                 @else
-                    Status  <input type="text" name="status" value="Inctive"class="form-control">
+                    Status  <input type="text" name="status" value="Inctive"class="form-control" readonly>
                 @endif
                 <a href="{{route('pdf',$task->id)}}" class="btn btn-primary" target="_blank" >Download Pdf</a>
 

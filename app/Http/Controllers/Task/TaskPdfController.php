@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Task;
 use App\Exports\Task\TasksExport;
 use App\Http\Controllers\Controller;
 use App\Imports\Task\TaskImport;
+use App\Models\RoleHasPermission;
 use Illuminate\Http\Request;
 use App\Models\Task;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class TaskPdfController extends Controller
 {
@@ -66,6 +69,20 @@ class TaskPdfController extends Controller
         
         // $date =now()->format('d-m-y');
         // Excel::import(new TaskImport,'tasks.xslx');
-    
+        public function show()
+        {
+            $roles = Role::get();
+            $permissions = Permission::get();
+            return view('task.manageRole',compact('roles','permissions'));
+        }
+        public function store(Request $request)
+        {
+            $role = new RoleHasPermission();
+            $role->role_id = $request->roles;
+            $role->permission_id =$request->permission;
+            $role->save(); 
+           
+            return redirect()->route('tasks.index');
+        }
     }
 

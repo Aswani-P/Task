@@ -22,12 +22,21 @@
                 <span class="alert " style="color:red;">{{$message}}</span>
                 @enderror
             </div>
+            <input type="hidden" name="source_id">
             <div class="mb-3">
                 <label for="emailControl" class="form-label" style="font-size:20px;">Email</label>
                 <input type="email" id="emailControl"  class="form-control" name="email" value="{{old('email')}}"/>
                 @error('email')
                 <span class="alert " style="color:red;">{{$message}}</span>
                 @enderror
+            </div>
+            <div class="mb-3">
+               <select name="source_id" id="source" class="form-control">
+                @foreach ($source as $item)
+                <option value="{{$item->id}}">{{$item->name}}</option>
+                    
+                @endforeach
+               </select>
             </div>
             <div class="mb-3">
                 <label for="codeControl" class="form-label" style="font-size:20px;">Phone code</label>
