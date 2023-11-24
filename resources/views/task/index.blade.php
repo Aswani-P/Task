@@ -34,7 +34,7 @@
         {{-- @if(auth()->user()->hasRole('admin')) --}}
        <?php  $user= auth()->user();?>
         <div>
-            @if($user->can('create post') || $user->can('upload post') )
+            @if($user->hasRole('admin') || $user->can('upload post') )
             <a href="{{ route('tasks.create') }}" class="btn btn-primary" role="button">Add Task</a>
          
         
