@@ -43,8 +43,9 @@
                 <div class="mb-3">
                     <label for="statusControl" class="form-label">Status</label>
                     <select name="status" id="stats" class="form-control">
-                        <option value="Active">Active</option>
-                        <option value="Inactive">Inactive</option>
+                
+                        <option value="1">1</option>
+                        <option value="0">0</option>
                     </select>
                     {{-- <input type="text" id="statusControl"  class="form-control" name="status" value="{{$tasks->status}}" /> --}}
                 </div><br>

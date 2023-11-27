@@ -21,7 +21,7 @@
     <div>
         @role('admin')
         <h5 style="color:rgb(0, 23, 128);text-align:center;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;padding-top:20px;">Hi admin</h5>
-        
+        @endrole
         <h1 style="color:green;text-align:center;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;padding-top:30px;">Tasks</h1>
     </div>
     <br>
@@ -34,7 +34,7 @@
         {{-- @if(auth()->user()->hasRole('admin')) --}}
        <?php  $user= auth()->user();?>
         <div>
-            @if($user->hasRole('admin') || $user->can('upload post') )
+            @if($user->hasRole('admin') || $user->can('upload post') || $user->hasRole('executives') )
             <a href="{{ route('tasks.create') }}" class="btn btn-primary" role="button">Add Task</a>
          
         
@@ -44,9 +44,9 @@
             <a href="{{route('show_role')}}" class="btn btn-dark" role="button" style="margin-left:1000px">Assign Role</a>
             @if($user->can('create post') || $user->can('upload post') )
             <div class="container" style="padding-top:20px;">
-                <form action="{{route('import')}}" method="post" enctype="multipart/form-data">
+                <form action="{{route('upload_csv')}}" method="post" enctype="multipart/form-data">
                     @csrf
-                    <input type="file" name="file_upload" id="file">
+                    <input type="file" name="csv" id="file">
                     <button type="submit" class="btn btn-primary">Upload</button>
                 </form>
             </div>
@@ -100,7 +100,22 @@
                 @endforeach --}}
             </tbody>
         </table>
-        @endrole
+
+
+        <div class="container">
+            <table class="table display" id="data">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Status</th>
+                        
+    
+                    </tr>
+                </thead>
+        </div>
+    
         {{-- @endif --}}
     </div>
 
@@ -126,6 +141,18 @@
                 {data:'source_id',name:'source_id'},
                 {data:'status',name:'status'},
                 {data:'Action',name:'Action'}
+            ]
+        })
+        $('#data').DataTable({
+            processing:true,
+            serverSide: true,
+            ajax:"{{route('data_list')}}",
+            columns: [
+                {data: 'id' ,  name: 'id'},
+                {data:'name', name:'name'},
+                {data:'email', name:'email'},
+                {data:'status',name:'status'},
+               
             ]
         })
 

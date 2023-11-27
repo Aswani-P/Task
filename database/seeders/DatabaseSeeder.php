@@ -15,17 +15,17 @@ class DatabaseSeeder extends Seeder
         // $adminRole = Role::create(['name' => 'admin']);
         // $editorRole = Role::create(['name' => 'editor']);
         // $teamLeader = Role::create(['name' => 'teamleader']);
-        $executiveRole = Role::create(['name' => 'lead']);
+        $executiveRole = Role::create(['name' => 'executives']);
 
         // // Create permissions
-        // $createPostPermission = Permission::create(['name' => 'create post']);
+        $createPostPermission = Permission::create(['name' => 'create post']);
         // $editPostPermission = Permission::create(['name' => 'edit post']);
-        $uploadPermission = Permission::create(['name' => 'upload post']);
+        // $uploadPermission = Permission::create(['name' => 'upload post']);
 
         // Assign permissions to roles
         // $adminRole->givePermissionTo([$createPostPermission, $editPostPermission, $deletePostPermission]);
         // $editorRole->givePermissionTo($createPostPermission);
-        $executiveRole->givePermissionTo($uploadPermission);
+        $executiveRole->givePermissionTo($createPostPermission);
         // $executiveRole->givePermissionTo(Permission::create(['name' => 'upload post']) );
     }
 }

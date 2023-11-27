@@ -10,7 +10,7 @@
 </head>
 <body><br><br>
     <div class="container-sm">
-        <form action="{{route('store')}}" class="form-control" method="post">
+        <form action="{{route('storing')}}" class="form-control" method="post">
             @csrf   
             <div class="mb-3">
                 <label for="name" >Name</label>

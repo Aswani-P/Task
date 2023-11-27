@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\Registercontroller;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Task\TaskController;
 use App\Http\Controllers\Task\TaskDeleteController;
+use App\Http\Controllers\Task\TaskImportController;
 use App\Http\Controllers\Task\TaskPdfController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 Route::get('/',[Registercontroller::class,'register']);
-Route::post('store-register',[Registercontroller::class,'store'])->name('store');
+Route::post('store-register',[Registercontroller::class,'store'])->name('storing');
 Route::get('login',[Registercontroller::class,'login'])->name('login');
 Route::post('/login',[AuthController::class,'userLogin'])->name('login');
 Route::get('admin',[AuthController::class,'view'])->name('admin');
@@ -35,3 +36,6 @@ Route::get('show-role',[RoleController::class,'view'])->name('view');
 Route::get('manage-role',[RoleController::class,'list'])->name('manage_role');
 Route::get('edit-role/{id}',[RoleController::class,'edit_role'])->name('edit_role');
 Route::post('asign-role',[RoleController::class,'store_role'])->name('store_role');
+
+Route::post('upload-csv',[TaskImportController::class,'upload_csv'])->name('upload_csv');
+Route::get('data-list',[TaskImportController::class,'data_list'])->name('data_list');

@@ -47,7 +47,9 @@ class TaskPdfController extends Controller
             if ($request->file('file_upload')) 
             {
                 (new TaskImport)->import($request->file_upload, null, \Maatwebsite\Excel\Excel::XLSX);
+                // dd($request->file_upload);
                 // Excel::import(new TaskImport,$request->file_upload,);
+                return redirect('tasks')->with('message','imported successfully');
             }
         }
         catch(\Maatwebsite\Excel\Validators\ValidationException $e)
@@ -59,7 +61,7 @@ class TaskPdfController extends Controller
                    $error_msg= $error_msg. $failure->errors()[0]; // Actual error messages from Laravel validator
                     $failure->values(); // The values of the row that has failed.
                 }
-                return redirect('tasks')->with('message',$error_msg);
+                return redirect('tasks')->with('message','failed to import.');
 
             }
 
@@ -76,13 +78,21 @@ class TaskPdfController extends Controller
             return view('task.manageRole',compact('roles','permissions'));
         }
         public function store(Request $request)
-        {
-            $role = new RoleHasPermission();
-            $role->role_id = $request->roles;
-            $role->permission_id =$request->permission;
-            $role->save(); 
+{
+    $role = Role::first();
+    $permission = Permission::first();
+
+    if ($role && $permission) {
+        RoleHasPermission::updateOrCreate(
+            ['role_id' => $role->id, 'permission_id' => $permission->id],
            
-            return redirect()->route('tasks.index');
-        }
+        );
+    } else {
+        return redirect()->route('tasks.index')->with('error', 'Unable to find Role or Permission.');
+    }
+
+    return redirect()->route('tasks.index')->with('success', 'Role and permission linked successfully.');
+}
+
     }
 

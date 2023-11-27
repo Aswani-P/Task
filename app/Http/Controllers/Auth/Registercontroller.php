@@ -15,10 +15,10 @@ class Registercontroller extends Controller
     public function store(UserRequest $request){
         $validate = $request->validated();
         $user = User::create($validate);
-        $user->assignRole('executive');
+        $user->assignRole('executives');
         
 
-        return redirect('login');
+        return redirect()->route('login');
 
     }
     public function login(){

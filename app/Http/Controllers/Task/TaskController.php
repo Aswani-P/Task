@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Task;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Task\TaskRequest;
 use App\Http\Requests\Task\TaskUpdateRequest;
+use App\Jobs\SendQueueEmail;
+use App\Mail\SendEmail;
 use App\Models\Source;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Yajra\DataTables\Facades\DataTables;
@@ -31,15 +34,14 @@ class TaskController extends Controller
             ->addColumn('Action', function ($task) {
                 $delete = ' ';
                 $edit = '<a href="' . route('tasks.edit', $task->id) . '" class="btn btn-warning" role="button">Update</a>';
-               if(auth()->user()->hasRole('admin')){
-                $delete = '<form action="' . route('delete', ['id' => $task->id]) . '" method="POST" style="display:inline">
+                if (auth()->user()->hasRole('admin')) {
+                    $delete = '<form action="' . route('delete', ['id' => $task->id]) . '" method="POST" style="display:inline">
                         ' . method_field('DELETE') . '' . csrf_field() . '<button type="submit"class="delete_btn btn btn-danger" onclick="alert_msg()" >Delete</button></form>';
-                
-                    }
+                }
                 $view = ' <a href="' . route('view', $task->id) . '"class="btn btn-primary" role="button">View</a>';
 
                 $btn = $edit . $delete . $view;
-            //   dd($btn);
+                //   dd($btn);
                 return $btn;
             })
             ->rawColumns(['source_id', 'status', 'Action'])
@@ -48,25 +50,21 @@ class TaskController extends Controller
 
     public function index()
     {
-        
+
         return view('task.index');
     }
 
     public function create()
     {
         $source = Source::get();
-        return view('task.create',compact('source'));
+        return view('task.create', compact('source'));
     }
 
     public function store(TaskRequest $request)
     {
-// dd($request->all());
+        // dd($request->all());
         $validate = $request->validated();
-        // Task::create($validate);
-        // // $source_name = request('source_id');
-        // // Source::create([
-        // //     'name'=>request($source_name)
-        // // ]);
+
         $task = new Task();
         $task->source_id = $request->source_id;
         $task->name = $request->name;
@@ -75,9 +73,22 @@ class TaskController extends Controller
         $task->phone = $request->phone;
         $task->save();
 
+        // if ($task) {
+
+        // $mail_details = [
+        //     'subject' => 'successfully submitted your task',
+
+        // ];
+        // $job = (new SendQueueEmail($mail_details))
+        // 	->delay(now()->addSeconds(2)); 
+        //     dispatch($job);
+
+        //     Mail::to($request->email)->send(new SendEmail($mail_details, $task));
+
+        SendQueueEmail::dispatch($task);
+
         return redirect('tasks')->with('message', 'created successfully');
     }
-
 
 
     public function edit(string $id)
@@ -85,7 +96,7 @@ class TaskController extends Controller
         $tasks = Task::find($id);
         $source = Source::get();
 
-        return view('task.edit', compact('tasks','source'));
+        return view('task.edit', compact('tasks', 'source'));
     }
 
     public function update(TaskUpdateRequest $request, string $id)
@@ -100,7 +111,7 @@ class TaskController extends Controller
                 'status' => request('status'),
             ]);
 
-            return redirect('tasks');
+            return redirect('tasks')->with('message', 'updated successfully');
         } catch (\Throwable $th) {
             info($th);
         }
@@ -113,6 +124,6 @@ class TaskController extends Controller
 
         $task->delete();
 
-        return redirect('tasks');
+        return redirect('tasks')->with('message', 'deleted successfully');
     }
 }
